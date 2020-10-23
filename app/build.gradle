@@ -32,5 +32,7 @@ dependencies {
 
     //From zxing-android-embedded version 4.x, only Android SDK 24+ is supported by default, and androidx is required.
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
-
+    //volley
+    implementation 'com.android.volley:volley:1.1.1'
+    implementation 'com.google.code.gson:gson:2.8.6'
 }

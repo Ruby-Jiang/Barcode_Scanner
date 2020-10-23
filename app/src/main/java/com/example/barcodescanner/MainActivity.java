@@ -6,12 +6,30 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.widget.EditText;
 
+//import com.android.volley.Request;
+//import com.android.volley.toolbox.Volley;
+//import com.android.volley.RequestQueue;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+
+//import android.os.Bundle;
+//import android.app.Activity;
+//import android.view.Menu;
+//import android.view.View;
+//
+//import org.json.JSONArray;
+//import org.json.JSONObject;
+//
+//import java.util.ArrayList;
+//import java.util.HashMap;
+//import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -22,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //init();
         scanBtn = findViewById(R.id.scanBtn);
         scanBtn.setOnClickListener(this);
     }
@@ -40,6 +59,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         integrator.initiateScan();
     }
 
+    public void Expiration(){
+        final EditText input = new EditText(this);
+        androidx.appcompat.app.AlertDialog dialog = new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setMessage("Expiration Date Input")
+                .setView(input)
+                .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        scanCode();
+                    }
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -48,10 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage(result.getContents());
                 builder.setTitle("Scanning Result");
-                builder.setPositiveButton("Scan Again", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Expiration Date", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        scanCode();
+                        Expiration();
                     }
                 }).setNegativeButton("Finished", new DialogInterface.OnClickListener() {
                     @Override
